@@ -1,0 +1,42 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+}
+#box{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#loginbox{
+    background-color: azure;
+    border: 7px solid orange;
+    border-radius: 10px;
+    height: 400px;
+    width: 500px;
+}
+#main{
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+}
+#username{
+    width: 275px;
+}
+#password{
+    width: 275px;
+}
+#submit{
+    margin-top: 10px;
+    margin-left: 120px;
+}
+#create{
+    margin-left: 200px;
+}

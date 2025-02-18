@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+    <div id="box">
+        <div id="loginbox">
+            <div id="main">
+                <form action="/submit" method = "post">
+                    <label for="username">Username:</label><br>
+                    <input type="text" id="username" name="username"><br>
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password"><br>
+                    <a href="password_reset.html">Forget password</a>
+                    <input type="submit" value="Submit" id="submit"><br>
+                    
+                </form>
+            </div><br><br>
+            <a href="create.html" id="create">Create an account</a><br>
+            {%if again%}
+            Incorrect password or username
+            {%endif%}
+        </div>
+    </div>
+</body>
+</html>
