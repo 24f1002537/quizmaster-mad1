@@ -7,7 +7,7 @@ html,body{
     height: 100%;
     width: 100%;
 }
-#box{
+#box{   
     height: 100%;
     width: 100%;
     background-color: black;
@@ -35,7 +35,8 @@ html,body{
 }
 #submit{
     margin-top: 10px;
-    margin-left: 120px;
+    margin-left: 60px;
+    margin-right: 25px;
 }
 #create{
     margin-left: 200px;

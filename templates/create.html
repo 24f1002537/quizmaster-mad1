@@ -4,8 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>create account</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style1.css')}}">
 </head>
 <body>
-    
+    <div id="box">
+        <div id="box2">
+            <form action="/to_database" method="post">
+                <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspWelcome to Quiz Master</h4><br>
+                <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRegistration</p><br>
+                <label for="username">Username(Email):</label>
+                <input type="text" name="username" id="username"><br><br>
+                <label for="password">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPassword:</label>
+                <input type="text" name="password" id="password"><br><br>
+                <label for="full_name">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspFull name:</label>
+                <input type="text" name="full_name" id="full_name"><br><br>
+                <label for="Qualification">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspQualification:</label>
+                <input type="text" name="Qualification" id="Qulification"><br><br>
+                <label for="Date_of_birth">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDate of birth:</label>
+                <input type="text" name="Dob" id="Dob"><br><br>
+                <input type="submit" value="submit">
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -11,15 +11,17 @@
         <div id="loginbox">
             <div id="main">
                 <form action="/submit" method = "post">
+                    <h4>Welcome to Quiz Master</h4><br>
+                    <p>Log in</p><br>
                     <label for="username">Username:</label><br>
                     <input type="text" id="username" name="username"><br>
                     <label for="password">Password:</label><br>
                     <input type="password" id="password" name="password"><br>
-                    <input type="submit" value="Submit" id="submit"><br>
-                    
+                    <input type="submit" value="Submit" id="submit">
+                    <a href="/create"> create an account</a>
                 </form>
             </div><br><br>
-            <a href="/create"> create an account</a>
+            
             <br>
             {%if again%}
             Incorrect password or username
