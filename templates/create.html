@@ -20,9 +20,15 @@
                 <input type="text" name="full_name" id="full_name"><br><br>
                 <label for="Qualification">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspQualification:</label>
                 <input type="text" name="Qualification" id="Qulification"><br><br>
-                <label for="Date_of_birth">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDate of birth:</label>
-                <input type="text" name="Dob" id="Dob"><br><br>
+                <label for="Dob">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDate of birth:</label>
+                <input type="date" name="dob" id="dob" value="2025-02-24" min="1947-01-01" max="2100-12-31"><br><br>
                 <input type="submit" value="submit">
+                {%if again%}
+                User already exist
+                {%endif%}
+                {%if succes%}
+                User has been created successfully
+                {%endif%}
             </form>
         </div>
     </div>
