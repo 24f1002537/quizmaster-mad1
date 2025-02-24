@@ -4,8 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+
+        }
+        nav{
+            width: 100%;
+            height: 40px;
+            border-radius: 15px;
+            background-color: aquamarine;
+        }
+        li{
+            margin: 60px;
+            display: inline;
+        }
+        #search{
+            margin-left: 200px;  
+        }
+        #add{
+            border-radius: 20px;
+            margin: 100px;
+            height: 40px;
+            width: 40px;
+        }
+        h1{
+            text-align: center;
+        }
+        div{
+            width: 400px;
+            border: solid;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .add2{
+            margin: 100px;
+            height: 40px;
+            width: auto;
+            
+        }
+        main{
+            display: flex;
+        }
+    </style>
 </head>
 <body>
-    
+    <nav>
+        <ul>
+            <li><a href="#"> Home &nbsp &nbsp|</a></li>
+            <li><a href="/quizmg"> Quiz &nbsp&nbsp|</a></li>
+            <li><a href=""> Summary&nbsp&nbsp |</a></li>
+            <li><a href="/"> Logout </a></li>
+            <li id="search"><input type="search">
+            <button>Search</button></li>
+        </ul>
+    </nav>
+    <main>
+    {%if get%}
+        {%for i in subject%}
+            {%for a in i%}
+                <div id="subs_chap">
+                    <h1>{{a}}</h1>
+                    <nav2></nav2>
+                    <button class="add2"><a href="/add_chapter">+Add chapter</a></button>
+                </div>
+            {%endfor%}
+        {%endfor%}
+    {%endif%}
+    </main>
+    <button id="add"><a href="/add">+</a></button>
 </body>
 </html>

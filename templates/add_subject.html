@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add subject</title>
+    <style>
+    *{
+        margin: 0%;
+        padding: 0%;
+        box-sizing: border-box;
+    }
+    html,body{
+        height: 100%;
+        width: 100%;
+    }
+    #main{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #box{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 200px;
+        width: 400px;
+        height: 400px;
+        background-color: cornsilk;
+    }
+    #description{
+        height: 60px;
+    }
+    #Submit{
+        width: 60px;
+    }
+    button{
+        width: 60px;
+    }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="box">
+            <form action="/add_sub" method="post">
+                <label for="Name">Name : &nbsp</label>
+                <input type="text" id="Name" name="Name"><br><br>
+                <label for="description">Description : &nbsp</label>
+                <input type="text" id="description" name="description"><br> <br>
+                <input type="submit" value="save" id="Submit">&nbsp &nbsp &nbsp &nbsp &nbsp 
+                <button><a href="/admin">cancel</a></button>
+                {%if again%}
+            Already exists
+            {%endif%}
+            {%if succes%}
+            saved successfully
+            {%endif%}
+            </form>
+        </div>
+        
+    </div>
+</body>
+</html>
