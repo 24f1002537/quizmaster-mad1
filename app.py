@@ -27,9 +27,6 @@ def create_user():
         return render_template('create.html',again = True)
     create_student(request.form['username'],request.form['password'],request.form['full_name'],request.form['Qualification'],request.form['dob'])
     return render_template('create.html',succes=True)
-@app.route('/quizmg')
-def quiz_mg():
-    return render_template('quiz_management.html')
 @app.route('/add')
 def add():
     return render_template('add_subject.html')
@@ -55,5 +52,23 @@ def add_cha(sub_name):
 @app.route('/add_chapter/<a>')
 def add_chapter(a):
     return render_template('add_chap.html',sub_name=a)
+@app.route('/quizmg')
+def quizmg():
+    q= get_ch()
+    c = get_id()
+    return render_template('quiz_managment.html',quiz = q ,get=True,chap=c)
+@app.route('/add_quiz')
+def add_quiz():
+    return render_template('add_quiz.html')
+@app.route('/add_quiz/quiz',methods=['Post'])
+def quiz():
+    if check_ch(request.form['chid']):
+        add_entry_quiz(request.form['chid'],request.form['date'],request.form['time'],request.form['remark'])
+        return render_template('add_quiz.html',succes=True)
+    return render_template('add_quiz.html',again = True)
+@app.route('/add_question/<i>')
+def add_question(i):
+    return render_template('add_question.html',q_id=i)
+
 if __name__ == '__main__':
     app.run(debug=True)

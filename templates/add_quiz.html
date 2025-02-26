@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>add chapter</title>
+    <title>add quiz</title>
     <style>
     *{
         margin: 0%;
@@ -42,15 +42,19 @@
 <body>
     <div id="main">
         <div id="box">
-            <form action="/add_chap/{{sub_name}}" method="post">
-                <label for="Name">Name : &nbsp</label>
-                <input type="text" id="Name" name="Name"><br><br>
-                <label for="description">Description : &nbsp</label>
-                <input type="text" id="description" name="description"><br> <br>
+            <form action="/add_quiz/quiz" method="post">
+                <label for="chid">Chapter_ID : &nbsp</label>
+                <input type="text" id="chid" name="chid"><br><br>
+                 <label for="date">Date :</label>
+                 <input type="date" name="date" id="date" min="2000-01-01" max="2125-01-01"><br><br>
+                 <label for="time">Duration :</label>
+                 <input type="time" name="time" id="time"><br><br>
+                 <label for="remark">Rrmark :</label>
+                 <input type="text" id="remark" name="remark"><br><br>
                 <input type="submit" value="save" id="Submit">&nbsp &nbsp &nbsp &nbsp &nbsp 
-                <button><a href="/admin">cancel</a></button>
+                <button><a href="/quizmg">cancel</a></button>
                 {%if again%}
-            subject name is not there
+            Chapter id is not there
             {%endif%}
             {%if succes%}
             saved successfully
