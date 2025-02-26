@@ -11,8 +11,9 @@ def login():
 def submit():
     if((request.form['username']=="prakhar@gmail.com")&(request.form['password']=="admin")):
         sub = res_get_subject()
+        chapter = re_get_chapter()
         if sub:
-            return render_template('Admin.html',subject = sub,get = True)
+            return render_template('Admin.html',subject = sub,chap=chapter,get = True)
         return render_template('Admin.html')
     elif(check(request.form['username'],request.form['password'])):
         return render_template('user.html')
@@ -34,6 +35,10 @@ def add():
     return render_template('add_subject.html')
 @app.route('/admin')
 def admin():
+    sub = res_get_subject()
+    chapter = re_get_chapter()
+    if sub:
+        return render_template('Admin.html',subject = sub,chap=chapter,get = True)
     return render_template('Admin.html')
 @app.route('/add_sub',methods=['Post'])
 def add_sub():
@@ -41,6 +46,14 @@ def add_sub():
         return render_template('add_subject.html', again = True)
     add_subject(request.form['Name'],request.form['description'])
     return render_template('add_subject.html',succes = True)
-
+@app.route('/add_chap/<sub_name>',methods=['Post'])
+def add_cha(sub_name):
+    if check_sub(sub_name):
+        add_chap(request.form['Name'],request.form['description'],sub_name)
+        return render_template('add_chap.html',succes = True)
+    return render_template('add_chap',again = True)
+@app.route('/add_chapter/<a>')
+def add_chapter(a):
+    return render_template('add_chap.html',sub_name=a)
 if __name__ == '__main__':
     app.run(debug=True)

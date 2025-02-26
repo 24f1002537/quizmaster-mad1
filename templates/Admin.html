@@ -33,7 +33,7 @@
             text-align: center;
         }
         div{
-            width: 400px;
+            width: 500px;
             border: solid;
             border-radius: 5px;
             margin-top: 10px;
@@ -47,6 +47,9 @@
         }
         main{
             display: flex;
+        }
+        tr{
+            text-align: center;
         }
     </style>
 </head>
@@ -63,15 +66,30 @@
     </nav>
     <main>
     {%if get%}
-        {%for i in subject%}
-            {%for a in i%}
-                <div id="subs_chap">
-                    <h1>{{a}}</h1>
-                    <nav2></nav2>
-                    <button class="add2"><a href="/add_chapter">+Add chapter</a></button>
-                </div>
-            {%endfor%}
-        {%endfor%}
+    {%for i in subject%}
+        {%for a in i%} 
+            <div id="subs_chap">
+                <h1>{{a}}</h1>
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Chapter</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                    {%for b in chap%}
+                    {%if a==b[3]%}
+                    <tr>
+                        <td>{{b[1]}}</td>
+                        <td>{{b[2]}}</td>
+                        <td><a href="/edit-delete">Edit-delete</a></td>
+                    </tr>
+                    {%endif%}
+                    {%endfor%}
+                </table>
+                <button class="add2"><a href="/add_chapter/{{a}}">+Add chapter</a></button>
+            </div>
+        {%endfor%}     
+    {%endfor%}  
     {%endif%}
     </main>
     <button id="add"><a href="/add">+</a></button>

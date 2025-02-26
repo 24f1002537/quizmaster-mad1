@@ -16,7 +16,7 @@ cur.execute('''
     description TEXT
 )''')
 cur.execute('''
-    CREATE TABLE chapter(
+    CREATE TABLE IF NOT EXISTS chapter(
     id INTEGER PRIMARY KEY ,
     name TEXT,
     description TEXT,
@@ -67,14 +67,14 @@ def add_subject(sub_nm,desc):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
     query = f"INSERT INTO subject (name,description) VALUES(?,?)"
-    cur.execute(query,(sub_nm,desc))
+    cur.execute(query,(sub_nm.upper(),desc))
     con.commit()
     con.close()
 def check_sub(usrnm):
     con =sqlite3.connect('database.sqlite3')
     cur = con.cursor()
     query = f"SELECT id FROM subject WHERE name=?"
-    cur.execute(query,(usrnm,))
+    cur.execute(query,(usrnm.upper(),))
     res = cur.fetchall()
     con.commit()
     con.close()
@@ -90,3 +90,20 @@ def res_get_subject():
     con.commit()
     con.close()
     return res
+def add_chap(chap_nm,desc,sub_name):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query = f"INSERT INTO chapter(name,description,sub_name) VALUES(?,?,?)"
+    cur.execute(query,(chap_nm.upper(),desc,sub_name.upper()))
+    con.commit()
+    con.close()
+def re_get_chapter():
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query = f"SELECT * FROM chapter"
+    cur.execute(query)
+    res = cur.fetchall()
+    con.commit()
+    con.close()
+    return res
+print(re_get_chapter())
