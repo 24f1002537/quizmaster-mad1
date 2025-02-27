@@ -69,6 +69,9 @@ def quiz():
 @app.route('/add_question/<i>')
 def add_question(i):
     return render_template('add_question.html',q_id=i)
-
+@app.route('/add_question/question/<q_id>',methods=['Post'])
+def add_q(q_id):
+    question_add(q_id,request.form['q_state'],request.form['option1'],request.form['option2'],request.form['option3'],request.form['option4'],request.form['croption'],request.form['Chapter_ID'],request.form['q_t'])
+    return render_template('add_question.html',succes=True)
 if __name__ == '__main__':
     app.run(debug=True)

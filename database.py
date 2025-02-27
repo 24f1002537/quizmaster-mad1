@@ -32,14 +32,14 @@ cur.execute('''CREATE TABLE IF NOT EXISTS quiz(
     FOREIGN KEY(chapter_id) REFERENCES chapter(id)
 )''')
 cur.execute('''CREATE TABLE IF NOT EXISTS question(
-    id PRIMARY KEY ,
+    id INTEGER PRIMARY KEY ,
     quiz_id INTEGER,
     question_statement TEXT,
     option_1 TEXT,
-    option_2 TEXT,option_3 TEXT,option_4 TEXT,correct_option TEXT,FOREIGN KEY(quiz_id) REFERENCES quiz(id)
+    option_2 TEXT,option_3 TEXT,option_4 TEXT,correct_option TEXT,chid TEXT,question_title TEXT,FOREIGN KEY(quiz_id) REFERENCES quiz(id)
 )''')
 cur.execute('''CREATE TABLE IF NOT EXISTS scores(
-            id PRIMARY KEY,
+            id INTEGER PRIMARY KEY,
             quiz_id INTEGER,user_id INTEGER,time_stamp_of_atempt TIME,total_scored INTEGER,
             FOREIGN KEY(quiz_id) REFERENCES quiz(id),FOREIGN KEY(user_id) REFERENCES user(id)            
 )''')
@@ -137,16 +137,25 @@ def get_ch():
 def get_id():
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
-    query = "SELECT chapter_id FROM quiz"
+    query = "SELECT chapter_id,id FROM quiz"
     cur.execute(query)
     res = cur.fetchall()
     con.commit()
     con.close()
     return res
-def question_add(q_id,q_state,o_1,o_2,o_3,o_4,co,id):
+def question_add(q_id,q_state,o_1,o_2,o_3,o_4,co,id,q_t):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
-    query = f"INSERT INTO question(quiz_id,question_statement,option_1,option_2,option_3,option_4,correct_option,chid) VALUES(?,?,?,?,?,?,?,?)"
-    cur.execute(query,(q_id,q_state,o_1,o_2,o_3,o_4,co,id))
+    query = f"INSERT INTO question(quiz_id,question_statement,option_1,option_2,option_3,option_4,correct_option,chid,question_title) VALUES(?,?,?,?,?,?,?,?,?)"
+    cur.execute(query,(q_id,q_state,o_1,o_2,o_3,o_4,co,id,q_t))
     con.commit()
     con.close()
+def quiz_id():
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query = "SELECT id FROM quiz"
+    cur.execute(query)
+    res = cur.fetchall()
+    con.commit()
+    con.close()
+    return res

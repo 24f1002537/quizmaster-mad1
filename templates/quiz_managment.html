@@ -68,8 +68,7 @@
     {%if get%}
     {%for i in quiz%}
     {%for b in chap%}
-    {%for x in b%}
-    {%if i[1]==x%}
+    {%if i[1]==b[0]%}
         <div id="subs_chap">
                 <h1>{{i[0]}}</h1>
                 <table style="width: 100%;">
@@ -84,14 +83,13 @@
                         <td>{{b[2]}}</td>
                         <td><a href="/edit-delete2">Edit-delete</a></td>
                 </tr>
-                
             </table>
-            <button class="add2"><a href="/add_question/{{i[1]}}">+Add question</a></button>
+            <button class="add2"><a href="/add_question/{{b[1]}}">+Add question</a></button>
+            
         </div>
     {%endif%}
     {%endfor%}
-    {%endfor%}   
-    {%endfor%}  
+    {%endfor%}    
     {%endif%}
     </main>
     <button id="add"><a href="/add_quiz">+New quiz</a></button>
