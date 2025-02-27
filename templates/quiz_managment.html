@@ -66,6 +66,7 @@
     </nav>
     <main>
     {%if get%}
+    {% set counter = 1 %}
     {%for i in quiz%}
     {%for b in chap%}
     {%if i[1]==b[0]%}
@@ -77,15 +78,17 @@
                         <th>Q_Title</th>
                         <th>Action</th>
                     </tr>
-                
+                    {%set x=1%}
+                {%if b[2]%}
                     <tr>
-                        <td>{{b[1]}}</td>
+                        <td>{{counter}}</td>
                         <td>{{b[2]}}</td>
                         <td><a href="/edit-delete2">Edit-delete</a></td>
                 </tr>
+                {%endif%}
             </table>
             <button class="add2"><a href="/add_question/{{b[1]}}">+Add question</a></button>
-            
+            {% set counter = counter + 1 %}
         </div>
     {%endif%}
     {%endfor%}

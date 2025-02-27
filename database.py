@@ -137,7 +137,7 @@ def get_ch():
 def get_id():
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
-    query = "SELECT chapter_id,id FROM quiz"
+    query = "SELECT chapter_id,quiz.id,question_title FROM quiz LEFT JOIN question ON quiz.id=question.quiz_id"
     cur.execute(query)
     res = cur.fetchall()
     con.commit()
@@ -150,12 +150,4 @@ def question_add(q_id,q_state,o_1,o_2,o_3,o_4,co,id,q_t):
     cur.execute(query,(q_id,q_state,o_1,o_2,o_3,o_4,co,id,q_t))
     con.commit()
     con.close()
-def quiz_id():
-    con = sqlite3.connect('database.sqlite3')
-    cur = con.cursor()
-    query = "SELECT id FROM quiz"
-    cur.execute(query)
-    res = cur.fetchall()
-    con.commit()
-    con.close()
-    return res
+
