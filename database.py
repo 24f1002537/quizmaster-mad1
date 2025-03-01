@@ -46,6 +46,8 @@ cur.execute('''CREATE TABLE IF NOT EXISTS scores(
 
 conn.commit()
 conn.close()
+
+#checking for valid user
 def check(usrnm,psw):
     con =sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -57,6 +59,9 @@ def check(usrnm,psw):
     if res:
         return True
     return False
+
+#adding user to database
+
 def create_student(usrnm,psw,full_name,qual,dob):
     conn = sqlite3.connect('database.sqlite3')
     cur = conn.cursor()
@@ -64,6 +69,8 @@ def create_student(usrnm,psw,full_name,qual,dob):
     cur.execute(query,(usrnm,psw,full_name,qual,dob))
     conn.commit()
     conn.close()
+
+#adding subject to database
 def add_subject(sub_nm,desc):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -71,6 +78,9 @@ def add_subject(sub_nm,desc):
     cur.execute(query,(sub_nm.upper(),desc))
     con.commit()
     con.close()
+
+#checking for valid chapter name
+
 def check_sub(usrnm):
     con =sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -82,6 +92,9 @@ def check_sub(usrnm):
     if res:
         return True
     return False 
+
+#getting subject detail 
+
 def res_get_subject():
     con =sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -91,6 +104,9 @@ def res_get_subject():
     con.commit()
     con.close()
     return res
+
+#adding chapter to dabase
+
 def add_chap(chap_nm,desc,sub_name):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -98,6 +114,9 @@ def add_chap(chap_nm,desc,sub_name):
     cur.execute(query,(chap_nm.upper(),desc,sub_name.upper()))
     con.commit()
     con.close()
+
+# getting chapter detail for admin page
+
 def re_get_chapter():
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -107,6 +126,9 @@ def re_get_chapter():
     con.commit()
     con.close()
     return res
+
+#taking entries to new quiz in dataabase
+
 def add_entry_quiz(ch_id,date,time,remark):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -114,6 +136,9 @@ def add_entry_quiz(ch_id,date,time,remark):
     cur.execute(query,(ch_id,date,time,remark))
     con.commit()
     con.close()
+
+#checking chapter id to verify entry to database
+
 def check_ch(id):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -125,6 +150,9 @@ def check_ch(id):
     if res:
         return True
     return False
+
+#gettting chapter name and id fron database
+
 def get_ch():
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -134,6 +162,9 @@ def get_ch():
     con.commit()
     con.close()
     return res
+
+#getting quiz id ad chapter id for quiz management render page
+
 def get_id():
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -143,6 +174,9 @@ def get_id():
     con.commit()
     con.close()
     return res
+
+#adding question to database
+
 def question_add(q_id,q_state,o_1,o_2,o_3,o_4,co,id,q_t):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
