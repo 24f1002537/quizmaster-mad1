@@ -185,3 +185,33 @@ def question_add(q_id,q_state,o_1,o_2,o_3,o_4,co,id,q_t):
     con.commit()
     con.close()
 
+#userid geter
+
+def get_u_id(name,psw):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query = f"SELECT id FROM users WHERE username_email=? AND password=?"
+    cur.execute(query,(name,psw))
+    res = cur.fetchall()
+    con.commit()
+    con.close()
+    return res
+
+#getting quiz detail
+
+def get_qz_d():
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query="SELECT * FROM quiz"
+    cur.execute(query)
+    f=cur.fetchall()
+    query = f"SELECT COUNT(id) FROM question WHERE quiz_id=?"
+    l = []
+    for a in f:
+        cur.execute(query,(a[0],))
+        g = cur.fetchall()
+        l.append(g)
+    con.commit()
+    con.close()
+    return [f,l]
+

@@ -33,11 +33,12 @@
             text-align: center;
         }
         div{
-            width: 500px;
+            width: 30%;
             border: solid;
             border-radius: 5px;
             margin-top: 10px;
             margin-left: 10px;
+            overflow-x: auto;
         }
         .add2{
             margin: 100px;
@@ -47,7 +48,12 @@
         }
         main{
             display: flex;
+            flex-wrap: wrap;
+            max-width: 100%;
+            
+            overflow-x: auto;
         }
+        
         tr{
             text-align: center;
         }
@@ -68,7 +74,7 @@
     {%if get%}
     {%for i in subject%}
         {%for a in i%} 
-            <div id="subs_chap">
+            <div class="subs_chap">
                 <h1>{{a}}</h1>
                 <table style="width: 100%;">
                     <tr>
@@ -85,6 +91,7 @@
                     </tr>
                     {%endif%}
                     {%endfor%}
+                    
                 </table>
                 <button class="add2"><a href="/add_chapter/{{a}}">+Add chapter</a></button>
             </div>

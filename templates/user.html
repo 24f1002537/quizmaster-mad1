@@ -4,8 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User</title>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+
+        }
+        nav{
+            width: 100%;
+            height: 40px;
+            border-radius: 15px;
+            background-color: aquamarine;
+        }
+        li{
+            margin: 60px;
+            display: inline;
+        }
+        #search{
+            margin-left: 200px;  
+        }
+        .table-container{
+            width: 90%; margin-left: 40px; margin-top: 15px;
+            border: 2px solid black;
+            border-radius: 10px;
+            height: 600px;
+        }
+        .innerbox{
+            margin-left: 10px;
+            border: 1px solid black;
+            background-color: blanchedalmond;
+            color: crimson;
+            text-decoration-color: aliceblue;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    
+    <nav>
+        <ul>
+            <li><a href="/user/{{u[0][0]}}"> Home &nbsp &nbsp|</a></li>
+            <li><a href="/quizmg"> Quiz &nbsp&nbsp|</a></li>
+            <li><a href=""> Summary&nbsp&nbsp |</a></li>
+            <li><a href="/"> Logout </a></li>
+            <li id="search"><input type="search">
+            <button>Search</button></li>
+        </ul>
+    </nav>
+    <div class="table-container">
+        <table style="width: 100%;text-align: center;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>N0. of Questions</th>
+                    <th>Date</th>
+                    <th>Duration(hh:mm)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            {%for i in range(x)%}
+            {%if a[1][i][0][0]%}
+            <tbody>
+                <tr>
+                    <td>{{a[0][i][0]}}</td>
+                    <td>{{a[1][i][0][0]}}</td>
+                    <td>{{a[0][i][2]}}</td>
+                    <td>{{a[0][i][3]}}</td>
+                    <td><a class="innerbox" href="">view</a><a class="innerbox" href="">start</a></td>
+                </tr>
+            {%endif%}
+            {%endfor%}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

@@ -20,7 +20,9 @@ def submit():
             return render_template('Admin.html',subject = sub,chap=chapter,get = True)
         return render_template('Admin.html')
     elif(check(request.form['username'],request.form['password'])):
-        return render_template('user.html')
+        u_id = get_u_id(request.form['username'],request.form['password'])
+        rep = get_qz_d()
+        return render_template('user.html',u=u_id,a=rep,x=len(get_qz_d()[1]))
     return render_template('login.html',again=True)
 
 #creating user
@@ -115,6 +117,11 @@ def add_question(i):
 def add_q(q_id):
     question_add(q_id,request.form['q_state'],request.form['option1'],request.form['option2'],request.form['option3'],request.form['option4'],request.form['croption'],request.form['Chapter_ID'],request.form['q_t'])
     return render_template('add_question.html',succes=True)
+
+@app.route('/user/<id>')
+def user(id):
+    rep = get_qz_d()
+    return render_template('user.html',u=id,a=rep,x=len(get_qz_d()[1]))
 
 
 if __name__ == '__main__':
