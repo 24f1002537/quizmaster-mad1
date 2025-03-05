@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit</title>
+</head>
+<body>
+    <div id="main">
+        <form action="/update_chap/{{a[0][0]}}" method="post">
+            <label for="Name">Name :</label>
+            <input type="text" name="Name" id="" value="{{a[0][1]}}"><br><br>
+            <label for="desc">Description :</label>
+            <input type="text" name="desc" id="" value="{{a[0][2]}}"><br><br>
+            <label for="subject">Subject :</label>
+            <input type="text" name="subject" id="" value="{{a[0][3]}}">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

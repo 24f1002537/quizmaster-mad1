@@ -269,4 +269,27 @@ def update_score(id,u_id,score):
     con.commit()
     con.close()
 
-print(get_id())
+def delete_chap(name):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    cur.execute("DELETE FROM chapter WHERE name = ?",(name,))
+    con.commit()
+    con.close()
+
+def eget_chap(name):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM chapter WHERE name = ?",(name.upper(),))
+    res = cur.fetchall()
+    con.commit()
+    con.close()
+    return res
+
+
+
+def update_chap(id,name,desc,subname):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    cur.execute("UPDATE chapter SET name = ?, description = ?, sub_name=? WHERE id=?",(name.upper(),desc,subname.upper(),id))
+    con.commit()
+    con.close()

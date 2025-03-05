@@ -57,6 +57,14 @@
         tr{
             text-align: center;
         }
+        .innerbox{
+            margin-left: 10px;
+            border: 1px solid black;
+            background-color: blanchedalmond;
+            color: crimson;
+            text-decoration-color: aliceblue;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -90,7 +98,7 @@
                     <tr>
                         <td>{{counter.value}}</td>
                         <td>{{x[1]}}</td>
-                        <td><a href="/edit-delete2">Edit-delete</a></td>
+                        <td><a href="/edit2" class="innerbox">Edit</a><a href="/delete2/" class="innerbox">Delete</a></td>
                     </tr>
                 {% set counter.value = counter.value + 1 %}
                 {%endif%}

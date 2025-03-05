@@ -60,6 +60,14 @@
         tr{
             text-align: center;
         }
+        .innerbox{
+            margin-left: 10px;
+            border: 1px solid black;
+            background-color: blanchedalmond;
+            color: crimson;
+            text-decoration-color: aliceblue;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -90,7 +98,7 @@
                     <tr>
                         <td>{{b[1]}}</td>
                         <td>{{b[2]}}</td>
-                        <td><a href="/edit-delete">Edit-delete</a></td>
+                        <td><a href="/edit/{{b[1]}}" class="innerbox">Edit</a><a href="/delete/{{b[1]}}" class="innerbox">Delete</a></td>
                     </tr>
                     {%endif%}
                     {%endfor%}

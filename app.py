@@ -168,6 +168,29 @@ def start_quiz(id,u_id):
         question_number=current_index + 1,a=id,b=u_id
     )
 
+@app.route('/delete/<name>')
+def delete(name):
+    delete_chap(name)
+    sub = res_get_subject()
+    chapter = re_get_chapter()
+    if sub:
+        return render_template('Admin.html',subject = sub,chap=chapter,get = True)
+    return render_template('Admin.html')
+
+@app.route('/edit/<name>')
+def redirecting_update(name):
+    return render_template('edit.html',a=eget_chap(name))
+
+@app.route('/update_chap/<id>',methods=['Post'])
+def up_chap(id):
+    print(request.form['Name'])
+    update_chap(id,request.form['Name'],request.form['desc'],request.form['subject'])
+    sub = res_get_subject()
+    chapter = re_get_chapter()
+    if sub:
+        return render_template('Admin.html',subject = sub,chap=chapter,get = True)
+    return render_template('Admin.html')
+
 #display scores
 
 
