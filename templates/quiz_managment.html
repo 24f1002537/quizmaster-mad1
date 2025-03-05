@@ -33,11 +33,12 @@
             text-align: center;
         }
         div{
-            width: 500px;
+            width: 30%;
             border: solid;
             border-radius: 5px;
             margin-top: 10px;
             margin-left: 10px;
+            overflow-x: auto;
         }
         .add2{
             margin: 100px;
@@ -47,6 +48,11 @@
         }
         main{
             display: flex;
+            flex-wrap: wrap;
+            max-width: 100%;
+            
+            overflow-x: auto;
+
         }
         tr{
             text-align: center;
@@ -56,7 +62,7 @@
 <body>
     <nav>
         <ul>
-            <li><a href="#"> Home &nbsp &nbsp|</a></li>
+            <li><a href="/admin"> Home &nbsp &nbsp|</a></li>
             <li><a href="/quizmg"> Quiz &nbsp&nbsp|</a></li>
             <li><a href=""> Summary&nbsp&nbsp |</a></li>
             <li><a href="/"> Logout </a></li>
@@ -66,35 +72,39 @@
     </nav>
     <main>
     {%if get%}
-    {% set counter = 1 %}
-    {%for i in quiz%}
-    {%for b in chap%}
-    {%if i[1]==b[0]%}
+    {% set i = namespace( value=0) %}
+    {%for b in chap[0]%}
+    {%if chap[1][i.value][1]==b[0]%}
+    {% set counter = namespace(value=1) %}
         <div id="subs_chap">
-                <h1>{{i[0]}}</h1>
+                <h1>{{chap[1][i.value][0]}}</h1>
                 <table style="width: 100%;">
                     <tr>
                         <th>ID</th>
                         <th>Q_Title</th>
                         <th>Action</th>
                     </tr>
-                    
-                {%if b[2]%}
+                
+                {%for x in chap[2]%}
+                {%if x[0]==b[1]%}
                     <tr>
-                        <td>{{counter}}</td>
-                        <td>{{b[2]}}</td>
+                        <td>{{counter.value}}</td>
+                        <td>{{x[1]}}</td>
                         <td><a href="/edit-delete2">Edit-delete</a></td>
-                </tr>
+                    </tr>
+                {% set counter.value = counter.value + 1 %}
                 {%endif%}
+                {%endfor%}
             </table>
             <button class="add2"><a href="/add_question/{{b[1]}}">+Add question</a></button>
-            {% set counter = counter + 1 %}
+            
         </div>
     {%endif%}
-    {%endfor%}
+    {% set i.value = i.value + 1 %}
     {%endfor%}    
     {%endif%}
     </main>
     <button id="add"><a href="/add_quiz">+New quiz</a></button>
+
 </body>
 </html>

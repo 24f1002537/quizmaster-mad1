@@ -2,7 +2,7 @@ import sqlite3
 conn = sqlite3.connect('database.sqlite3')
 cur = conn.cursor()
 cur.execute('''CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY ,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     username_email TEXT NOT NULL,
     password TEXT UNIQUE NOT NULL,
     full_name TEXT,
@@ -11,20 +11,20 @@ cur.execute('''CREATE TABLE IF NOT EXISTS users (
 )''')
 cur.execute('''
     CREATE TABLE IF NOT EXISTS subject(
-    id INTEGER PRIMARY KEY ,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     description TEXT
 )''')
 cur.execute('''
     CREATE TABLE IF NOT EXISTS chapter(
-    id INTEGER PRIMARY KEY ,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     description TEXT,
     sub_name TEXT,
     FOREIGN KEY (sub_name) REFERENCES subject(name))
 ''')
 cur.execute('''CREATE TABLE IF NOT EXISTS quiz(
-    id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     chapter_id INTEGER,
     date_of_quiz DATE,
     time_duration TIME,
@@ -32,15 +32,15 @@ cur.execute('''CREATE TABLE IF NOT EXISTS quiz(
     FOREIGN KEY(chapter_id) REFERENCES chapter(id)
 )''')
 cur.execute('''CREATE TABLE IF NOT EXISTS question(
-    id INTEGER PRIMARY KEY ,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     quiz_id INTEGER,
     question_statement TEXT,
     option_1 TEXT,
     option_2 TEXT,option_3 TEXT,option_4 TEXT,correct_option TEXT,chid TEXT,question_title TEXT,FOREIGN KEY(quiz_id) REFERENCES quiz(id)
 )''')
 cur.execute('''CREATE TABLE IF NOT EXISTS scores(
-            id INTEGER PRIMARY KEY,
-            quiz_id INTEGER,user_id INTEGER,time_stamp_of_atempt TIME,total_scored INTEGER,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            quiz_id INTEGER,user_id INTEGER,time_stamp_of_atempt TIME,total_scored INTEGER,date_of_quiz DATE,
             FOREIGN KEY(quiz_id) REFERENCES quiz(id),FOREIGN KEY(user_id) REFERENCES user(id)            
 )''')
 
@@ -168,12 +168,18 @@ def get_ch():
 def get_id():
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
-    query = "SELECT chapter_id,quiz.id,question_title FROM quiz LEFT JOIN question ON quiz.id=question.quiz_id"
+    query = "SELECT chapter_id,id FROM quiz"
     cur.execute(query)
-    res = cur.fetchall()
+    res_1 = cur.fetchall()
+    query = "SELECT name,id FROM chapter"
+    cur.execute(query)
+    res_2 = cur.fetchall()
+    query = "SELECT quiz_id,question_title FROM question"
+    cur.execute(query)
+    res_3 = cur.fetchall()
     con.commit()
     con.close()
-    return res
+    return [res_1,res_2,res_3]
 
 #adding question to database
 
@@ -205,7 +211,7 @@ def get_qz_d():
     query="SELECT * FROM quiz"
     cur.execute(query)
     f=cur.fetchall()
-    query = f"SELECT COUNT(id) FROM question WHERE quiz_id=?"
+    query = f"SELECT COUNT(id),quiz_id FROM question WHERE quiz_id=?"
     l = []
     for a in f:
         cur.execute(query,(a[0],))
@@ -215,3 +221,52 @@ def get_qz_d():
     con.close()
     return [f,l]
 
+#view purpose
+
+def get_q_full_d(id):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query = f"SELECT * FROM quiz WHERE id =?"
+    cur.execute(query,(id,))
+    res_1 = cur.fetchall()
+    query = f"SELECT COUNT(id) FROM question WHERE quiz_id=?"
+    cur.execute(query,(id,))
+    res_2 = cur.fetchall()
+    query = f"SELECT name,sub_name FROM chapter WHERE id =?"
+    cur.execute(query,(res_1[0][1],))
+    res_3 = cur.fetchall()
+    con.commit()
+    con.close()
+    return [res_1,res_2,res_3]
+
+#
+
+def question_get(id):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query = f"SELECT question_statement,option_1,option_2,option_3,option_4,correct_option FROM question WHERE quiz_id=?"
+    cur.execute(query,(id,))
+    res1 = cur.fetchall()
+    con.commit()
+    con.close()
+    res = []
+    
+    for a in res1:
+        l={}
+        l['question'] = a[0]
+        l['options'] = [a[1],a[2],a[3],a[4]]
+        l['answer'] = a[5]
+        res.append(l)
+    return res
+
+#update scores
+
+def update_score(id,u_id,score):
+    con=sqlite3.connect('database.sqlite3')
+    cur=con.cursor()
+    query=f"INSERT INTO scores('quiz_id','user_id','time_stamp_of_atempt','total_scored','date_of_quiz') VALUES(?,?,DATETIME('now'),?,DATE('now'))"
+    cur.execute(query,(id,u_id,score))
+    con.commit()
+    con.close()
+
+print(get_id())

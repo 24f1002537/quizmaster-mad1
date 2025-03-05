@@ -1,9 +1,10 @@
-from flask import Flask , render_template,url_for,request
+from flask import Flask , render_template,request,session
 from database import *
 
 
 app = Flask(__name__)
 app.app_context().push()
+app.secret_key = 'your_secret_key'
 #login
 @app.route('/')
 def login():
@@ -86,9 +87,8 @@ def add_chapter(a):
 
 @app.route('/quizmg')
 def quizmg():
-    q= get_ch()
     c = get_id()
-    return render_template('quiz_managment.html',quiz = q ,get=True,chap=c)
+    return render_template('quiz_managment.html',get=True,chap=c)
 
 #adding quiz page render
 
@@ -118,10 +118,58 @@ def add_q(q_id):
     question_add(q_id,request.form['q_state'],request.form['option1'],request.form['option2'],request.form['option3'],request.form['option4'],request.form['croption'],request.form['Chapter_ID'],request.form['q_t'])
     return render_template('add_question.html',succes=True)
 
+#user id home retrive
+
 @app.route('/user/<id>')
 def user(id):
     rep = get_qz_d()
     return render_template('user.html',u=id,a=rep,x=len(get_qz_d()[1]))
+
+#quiz detail viewer
+
+@app.route('/view/<id>/<u_id>')
+def view(id,u_id):
+    return render_template('detail_view.html',a=get_q_full_d(id),b=u_id)
+
+#go to main quiz 
+
+@app.route('/start_quiz/<int:id>/<int:u_id>', methods=['GET','POST'])
+def start_quiz(id,u_id):
+    QUESTIONS = question_get(id)
+    if 'current_index' not in session:
+        session['current_index'] = 0
+        session['score'] = 0
+
+    current_index = session['current_index']
+
+    # If the quiz is complete
+    if current_index >= len(QUESTIONS):
+        score = session.pop('score', 0)
+        total_questions = len(QUESTIONS)
+        session.pop('current_index', None)
+        update_score(id,u_id,score)
+        return render_template('start_quiz.html', current_question=None, score=score, total_questions=total_questions,a=id,b=u_id)
+
+    question_data = QUESTIONS[current_index]
+
+    if request.method == 'POST':
+        user_answer = request.form['user_answer']
+        correct_answer = question_data['answer']
+        if user_answer == correct_answer:
+            session['score'] += 1
+        session['current_index'] += 1
+
+        
+
+    return render_template(
+        'start_quiz.html',
+        current_question=question_data['question'],
+        options=question_data['options'],
+        question_number=current_index + 1,a=id,b=u_id
+    )
+
+#display scores
+
 
 
 if __name__ == '__main__':

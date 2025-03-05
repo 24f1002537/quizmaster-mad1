@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question-container {
+            margin-bottom: 20px;
+        }
+        .button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    {%set i = namespace(value=1)%}
+    <h1>Quiz Application</h1>
+    <div id="quiz-container">
+        <form action="/start_quiz/{{a}}/{{b}}" method="POST">
+            {% if current_question is not none %}
+                <div class="question-container">
+                    <p><strong>Question {{ question_number }}:</strong> {{ current_question }}</p>
+                    <div>
+                        
+                        {% for option in options %}
+                            <input type="radio" id="option{{ loop.index }}" name="user_answer" value="{{ i.value }}" required>
+                            <label for="option{{ loop.index }}">{{ option }}</label><br>
+                            {%set i.value = i.value + 1 %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <button type="submit" class="button">Next</button>
+            {% else %}
+                <p>Quiz complete! Your score is {{ score }} out of {{ total_questions }}.</p>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
