@@ -98,7 +98,7 @@
                     <tr>
                         <td>{{counter.value}}</td>
                         <td>{{x[1]}}</td>
-                        <td><a href="/edit2" class="innerbox">Edit</a><a href="/delete2/" class="innerbox">Delete</a></td>
+                        <td><a href="/edit2/{{x[2]}}" class="innerbox">Edit</a><a href="/delete2/{{x[2]}}" class="innerbox">Delete</a></td>
                     </tr>
                 {% set counter.value = counter.value + 1 %}
                 {%endif%}

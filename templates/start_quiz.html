@@ -45,6 +45,7 @@
                 <button type="submit" class="button">Next</button>
             {% else %}
                 <p>Quiz complete! Your score is {{ score }} out of {{ total_questions }}.</p>
+                <button class="button"><a href="/user/{{b}}">close</a></button>
             {% endif %}
         </form>
     </div>

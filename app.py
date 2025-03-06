@@ -191,6 +191,24 @@ def up_chap(id):
         return render_template('Admin.html',subject = sub,chap=chapter,get = True)
     return render_template('Admin.html')
 
+@app.route('/edit2/<id>')
+def edit_q(id):
+    b = getqbyquesid(id)
+    return render_template('edit2.html',a=b,i=id)
+
+@app.route('/edit_q/<id>',methods=['POST'])
+def edit_q_u(id):
+    update_q(request.form['Chapter_ID'],request.form['q_t'],request.form['q_state'],request.form['option1'],request.form['option2'],request.form['option3'],request.form['option4'],request.form['croption'],id)
+    c = get_id()
+    return render_template('quiz_managment.html',get=True,chap=c)
+
+
+@app.route('/delete2/<id>')
+def del_q(id):
+    delete_q(id)
+    c = get_id()
+    return render_template('quiz_managment.html',get=True,chap=c)
+
 #display scores
 
 

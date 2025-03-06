@@ -174,7 +174,7 @@ def get_id():
     query = "SELECT name,id FROM chapter"
     cur.execute(query)
     res_2 = cur.fetchall()
-    query = "SELECT quiz_id,question_title FROM question"
+    query = "SELECT quiz_id,question_title,id FROM question"
     cur.execute(query)
     res_3 = cur.fetchall()
     con.commit()
@@ -291,5 +291,30 @@ def update_chap(id,name,desc,subname):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
     cur.execute("UPDATE chapter SET name = ?, description = ?, sub_name=? WHERE id=?",(name.upper(),desc,subname.upper(),id))
+    con.commit()
+    con.close()
+
+#getting q by qid
+
+def getqbyquesid(id):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    cur.execute('SELECT chid,question_title,question_statement,option_1,option_2,option_3,option_4,correct_option FROM question WHERE id = ?',(id,))
+    res = cur.fetchall()
+    con.commit()
+    con.close()
+    return res
+
+def update_q(chid,q_t,q_s,o_1,o_2,o_3,o_4,c_o,id):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    cur.execute("UPDATE question SET chid = ?, question_title = ?, question_statement=? ,option_1=?,option_2=?,option_3=?,option_4=?,correct_option=? WHERE id=?",(chid,q_t,q_s,o_1,o_2,o_3,o_4,c_o,id))
+    con.commit()
+    con.close()
+
+def delete_q(id):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    cur.execute("DELETE FROM question WHERE id = ?",(id,))
     con.commit()
     con.close()

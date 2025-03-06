@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add question</title>
+    <style>
+    *{
+        margin: 0%;
+        padding: 0%;
+        box-sizing: border-box;
+    }
+    html,body{
+        height: 100%;
+        width: 100%;
+    }
+    form{
+        text-align: center;
+    }
+    #main{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #box{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 200px;
+        width: 400px;
+        height: 400px;
+        background-color: cornsilk;
+    }
+    #description{
+        height: 60px;
+    }
+    #Submit{
+        width: 60px;
+    }
+    button{
+        width: 60px;
+    }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="box">
+            <form action="/edit_q/{{i}}" method="post">
+                <label for="Chapter_ID">Chapter ID : &nbsp</label>
+                <input type="text" id="Chapter_ID" name="Chapter_ID" value="{{a[0][0]}}"><br><br>
+                <label for="q_t">Question title : &nbsp</label>
+                <input type="text" id="q_t" name="q_t" value="{{a[0][1]}}"><br><br>
+                <label for="q_state">Question statement : &nbsp</label>
+                <input type="text" id="description" name="q_state" value="{{a[0][2]}}"><br> <br>
+                <div id="single_correct">
+                    <label for="option1">Option 1)</label>
+                    <input type="text" name="option1" id="option1" value="{{a[0][3]}}"><br><br>
+                    <label for="option2">Option 2)</label>
+                    <input type="text" name="option2" id="option2" value="{{a[0][4]}}"><br><br>
+                    <label for="option3">Option 3)</label>
+                    <input type="text" name="option3" id="option3" value="{{a[0][5]}}"><br><br>
+                    <label for="option4">Option 4)</label>
+                    <input type="text" name="option4" id="option4" value="{{a[0][6]}}"><br><br>
+                    <label for="croption">Correct option </label>
+                    <input type="text" name="croption" id="croption" value="{{a[0][7]}}"><br><br>
+                </div>
+                <input type="submit" value="save" id="Submit">&nbsp &nbsp &nbsp &nbsp &nbsp 
+                <button><a href="/quizmg">cancel</a></button>
+                {%if again%}
+            subject name is not there
+            {%endif%}
+            {%if succes%}
+            saved successfully
+            {%endif%}
+            </form>
+        </div>
+        
+    </div>
+</body>
+</html>
