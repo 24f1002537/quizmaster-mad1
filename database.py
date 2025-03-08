@@ -360,3 +360,28 @@ def sum_for_user(id):
             d[b[1]] = b[0]
     return d
 
+#all score of user
+
+def final_score():
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query= f"SELECT chapter.sub_name,scores.total_scored,users.id FROM users INNER JOIN scores ON users.id=scores.user_id INNER JOIN quiz ON scores.quiz_id=quiz.id INNER JOIN chapter ON quiz.chapter_id=chapter.id"
+    cur.execute(query)
+    res = cur.fetchall()
+    query = "SELECT id FROM users"
+    cur.execute(query)
+    a = cur.fetchall()
+    con.commit()
+    con.close()
+    l=[]
+    for i in a:
+        d = {}
+        for b in res:
+            if b[2] == i[0]:
+                if b[0] in d.keys():
+                    d[b[0]] += b[1]
+                else:
+                    d[b[0]] = b[1]
+        l.append(d)
+    return l
+

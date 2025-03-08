@@ -60,5 +60,20 @@
 
     <img src="data:image/png;base64,{{chart}}" alt="Data not found">
     {%endif%}
+    {%if admin%}
+    <nav>
+        <ul>
+            <li><a href="/admin"> Home &nbsp &nbsp|</a></li>
+            <li><a href="/quizmg"> Quiz &nbsp&nbsp|</a></li>
+            <li><a href=""> Summary&nbsp&nbsp |</a></li>
+            <li><a href="/"> Logout </a></li>
+            <li id="search"><form action="/search" id="insearch" method="post"><input type="search" name="s">
+                <button type="submit">Search</button> Welcome Admin</form></li>
+        </ul>
+    </nav>
+    {%for i in chart%}
+        <img src="data:image/png;base64,{{i}}" alt="Data not found">
+    {%endfor%}
+    {%endif%}
 </body>
 </html>

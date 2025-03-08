@@ -236,7 +236,10 @@ def searc(id):
     
 #display scores
 
-
+@app.route('/scores/<id>')
+def scores(id):
+    a = final_score(id)
+    return render_template('scores.html',a=a,u=id)
 
 
 #summary user/admin
@@ -246,7 +249,11 @@ def usummary(id):
     x = [i for i in sum_for_user(id).values()]
     y = [i for i in sum_for_user(id).keys()]
 
-    plt.bar(x,y)
+    plt.bar(y,x)
+
+    plt.xlabel('Subjects')
+
+    plt.ylabel('Total marks')
 
     img_buffer = io.BytesIO()
 
@@ -256,6 +263,29 @@ def usummary(id):
     img_data = base64.b64encode(img_buffer.read()).decode('utf-8')
 
     return render_template('summary.html',user=True,chart=img_data,u=id)
+
+@app.route('/summary')
+def asummary():
+    a = final_score()
+    l=[]
+    for z in a:
+        x = [i for i in z.values()]
+        y = [i for i in z.keys()]
+
+        plt.bar(y,x)
+
+        plt.xlabel('Subjects')
+
+        plt.ylabel('Total marks')
+
+        img_buffer = io.BytesIO()
+
+        plt.savefig(img_buffer,format="png")
+        img_buffer.seek(0)
+
+        img_data = base64.b64encode(img_buffer.read()).decode('utf-8')
+        l.append(img_data)
+    return render_template('summary.html',admin=True,chart=l)
 
 
 

@@ -43,9 +43,8 @@
     <nav>
         <ul>
             <li><a href="/user/{{u[0][0]}}"> Home____|</a></li>
-            <li><a href="/quizmg"> Quiz____|</a></li>
-            <li><a href=""> Summary____|</a></li>
             <li><a href="/scores/{{u[0][0]}}">Scores____|</a></li>
+            <li><a href="/summary/{{u[0][0]}}"> Summary____|</a></li>
             <li><a href="/"> Logout </a></li>
             <li id="search"><input type="search">
             <button>Search</button></li>
@@ -56,23 +55,21 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>N0. of Questions</th>
-                    <th>Date</th>
-                    <th>Duration(hh:mm)</th>
-                    <th>Action</th>
+                    <th>Subjects</th>
+                    <th>Chapter</th>
+                    <th>Score</th>
                 </tr>
             </thead>
-            {%for i in range(x)%}
-            {%if a[1][i][0][0]%}
+            {%set count = namespace(value=1)%}
+            {%for i in a%}
             <tbody>
                 <tr>
-                    <td>{{a[0][i][0]}}</td>
-                    <td>{{a[1][i][0][0]}}</td>
-                    <td>{{a[0][i][2]}}</td>
-                    <td>{{a[0][i][3]}}</td>
-                    <td><a class="innerbox" href="/view/{{a[0][i][0]}}/{{u[0][0]}}">view</a><a class="innerbox" href="/start_quiz/{{a[0][i][0]}}/{{u[0][0]}}">start</a></td>
+                    <td>{{count.value}}</td>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[2]}}</td>
+                    <td>{{i[1]}}</td>
                 </tr>
-            {%endif%}
+                {%set count.value = count.value + 1%}
             {%endfor%}
             </tbody>
         </table>
