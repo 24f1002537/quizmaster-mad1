@@ -21,7 +21,7 @@
             display: inline;
         }
         #search{
-            margin-left: 200px;  
+            margin-left: 120px;  
         }
         .table-container{
             width: 90%; margin-left: 40px; margin-top: 15px;
@@ -37,20 +37,25 @@
             text-decoration-color: aliceblue;
             border-radius: 4px;
         }
+        #insearch{
+            display: inline;
+        }
+        
     </style>
 </head>
 <body>
     <nav>
         <ul>
             <li><a href="/user/{{u[0][0]}}"> Home____|</a></li>
-            <li><a href="/quizmg"> Quiz____|</a></li>
-            <li><a href=""> Summary____|</a></li>
+            
             <li><a href="/scores/{{u[0][0]}}">Scores____|</a></li>
+            <li><a href="/summary/{{u[0][0]}}"> Summary____|</a></li>
             <li><a href="/"> Logout </a></li>
-            <li id="search"><input type="search">
-            <button>Search</button></li>
+            <li id="search"><form action="/search/{{u[0][0]}}" id="insearch" method="post"><input type="search" name="s">
+                <button type="submit">Search</button> Welcome user</form></li>
         </ul>
     </nav>
+    {%if not search%}
     <div class="table-container">
         <table style="width: 100%;text-align: center;">
             <thead>
@@ -77,5 +82,31 @@
             </tbody>
         </table>
     </div>
+    {%endif%}
+    {%if l%}
+    {%set count = namespace( value = 1)%}
+    <ser class="table2">
+        <table style="width: 100%;text-align: center;">
+            <tr>
+                <th>Id</th>
+                <th>Subject</th>
+                <th>Chapter</th>
+                <th>Date of quiz</th>
+                <th>Score</th>
+            </tr>
+            {%for b in l %}
+            <tr>
+                <td>{{count.value}}</td>
+                <td>{{b[0]}}</td>
+                <td>{{b[2]}}</td>
+                <td>{{b[3]}}</td>
+                <td>{{b[1]}}</td>
+            </tr>
+            {%set count.value = count.value + 1 %}
+            {%endfor%}
+        </table>
+    </ser>
+    {%endif%}
+    {{m}}
 </body>
 </html>

@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 conn = sqlite3.connect('database.sqlite3')
 cur = conn.cursor()
 cur.execute('''CREATE TABLE IF NOT EXISTS users (
@@ -305,6 +306,8 @@ def getqbyquesid(id):
     con.close()
     return res
 
+#update quiz
+
 def update_q(chid,q_t,q_s,o_1,o_2,o_3,o_4,c_o,id):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
@@ -312,9 +315,48 @@ def update_q(chid,q_t,q_s,o_1,o_2,o_3,o_4,c_o,id):
     con.commit()
     con.close()
 
+#delete quiz
+
 def delete_q(id):
     con = sqlite3.connect('database.sqlite3')
     cur = con.cursor()
     cur.execute("DELETE FROM question WHERE id = ?",(id,))
     con.commit()
     con.close()
+
+def get_search(name):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query= f"SELECT users.username_email,chapter.sub_name,scores.total_scored,chapter.name FROM users INNER JOIN scores ON users.id=scores.user_id INNER JOIN quiz ON scores.quiz_id=quiz.id INNER JOIN chapter ON quiz.chapter_id=chapter.id WHERE users.username_email=? OR chapter.sub_name=?"
+    cur.execute(query,(name,name.upper()))
+    res = cur.fetchall()
+    con.commit()
+    con.close()
+    return res
+
+def get_searc(name,uid):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query= f"SELECT chapter.sub_name,scores.total_scored,chapter.name,quiz.date_of_quiz FROM users INNER JOIN scores ON users.id=scores.user_id INNER JOIN quiz ON scores.quiz_id=quiz.id INNER JOIN chapter ON quiz.chapter_id=chapter.id WHERE (quiz.date_of_quiz=? OR scores.total_scored=?) AND users.id=?"
+    cur.execute(query,(name,name,uid))
+    res = cur.fetchall()
+    con.commit()
+    con.close()
+    return res
+
+def sum_for_user(id):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query = f"SELECT scores.total_scored,chapter.sub_name FROM users INNER JOIN scores ON users.id = scores.user_id INNER JOIN quiz ON scores.quiz_id = quiz.id INNER JOIN chapter ON quiz.chapter_id=chapter.id WHERE users.id = ?"
+    cur.execute(query,(id,))
+    a = cur.fetchall()
+    con.commit()
+    con.close()
+    d={}
+    for b in a:
+        if b[1] in d.keys():
+            d[b[1]] += b[0]
+        else:
+            d[b[1]] = b[0]
+    return d
+

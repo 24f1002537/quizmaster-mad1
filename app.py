@@ -1,5 +1,8 @@
 from flask import Flask , render_template,request,session
 from database import *
+import matplotlib.pyplot as plt
+import io
+import base64
 
 
 app = Flask(__name__)
@@ -168,6 +171,8 @@ def start_quiz(id,u_id):
         question_number=current_index + 1,a=id,b=u_id
     )
 
+#delete/edit1
+
 @app.route('/delete/<name>')
 def delete(name):
     delete_chap(name)
@@ -191,6 +196,9 @@ def up_chap(id):
         return render_template('Admin.html',subject = sub,chap=chapter,get = True)
     return render_template('Admin.html')
 
+
+#delete/edit2
+
 @app.route('/edit2/<id>')
 def edit_q(id):
     b = getqbyquesid(id)
@@ -209,7 +217,45 @@ def del_q(id):
     c = get_id()
     return render_template('quiz_managment.html',get=True,chap=c)
 
+
+#search admin/user
+
+@app.route('/search',methods=['GET','POST'])
+def search():
+    b=get_search(request.form['s'])
+    if b:
+        return render_template('Admin.html',search=True,a=b)
+    return render_template('Admin.html',search = True)
+
+@app.route('/search/<id>',methods=['GET','POST'])
+def searc(id):
+    b=get_searc(request.form['s'],id)
+    if b:
+       return render_template('user.html',search=True,l=b,u=id)
+    return render_template('user.html',search=True,u=id)
+    
 #display scores
+
+
+
+
+#summary user/admin
+
+@app.route('/summary/<id>')
+def usummary(id):
+    x = [i for i in sum_for_user(id).values()]
+    y = [i for i in sum_for_user(id).keys()]
+
+    plt.bar(x,y)
+
+    img_buffer = io.BytesIO()
+
+    plt.savefig(img_buffer,format="png")
+    img_buffer.seek(0)
+
+    img_data = base64.b64encode(img_buffer.read()).decode('utf-8')
+
+    return render_template('summary.html',user=True,chart=img_data,u=id)
 
 
 
