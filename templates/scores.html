@@ -37,6 +37,9 @@
             text-decoration-color: aliceblue;
             border-radius: 4px;
         }
+        #insearch{
+            display: inline;
+        }
     </style>
 </head>
 <body>
@@ -46,8 +49,8 @@
             <li><a href="/scores/{{u[0][0]}}">Scores____|</a></li>
             <li><a href="/summary/{{u[0][0]}}"> Summary____|</a></li>
             <li><a href="/"> Logout </a></li>
-            <li id="search"><input type="search">
-            <button>Search</button></li>
+            <li id="search"><form action="/search/{{u[0][0]}}" id="insearch" method="post"><input type="search" name="s">
+                <button type="submit">Search</button> Welcome user</form></li>
         </ul>
     </nav>
     <div class="table-container">

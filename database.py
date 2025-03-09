@@ -1,5 +1,4 @@
 import sqlite3
-from datetime import datetime
 conn = sqlite3.connect('database.sqlite3')
 cur = conn.cursor()
 cur.execute('''CREATE TABLE IF NOT EXISTS users (
@@ -44,7 +43,6 @@ cur.execute('''CREATE TABLE IF NOT EXISTS scores(
             quiz_id INTEGER,user_id INTEGER,time_stamp_of_atempt TIME,total_scored INTEGER,date_of_quiz DATE,
             FOREIGN KEY(quiz_id) REFERENCES quiz(id),FOREIGN KEY(user_id) REFERENCES user(id)            
 )''')
-
 conn.commit()
 conn.close()
 
@@ -360,6 +358,15 @@ def sum_for_user(id):
             d[b[1]] = b[0]
     return d
 
+def final_scor(id):
+    con = sqlite3.connect('database.sqlite3')
+    cur = con.cursor()
+    query= f"SELECT chapter.sub_name,scores.total_scored,chapter.name FROM users INNER JOIN scores ON users.id=scores.user_id INNER JOIN quiz ON scores.quiz_id=quiz.id INNER JOIN chapter ON quiz.chapter_id=chapter.id WHERE users.id = ?"
+    cur.execute(query,(id,))
+    res = cur.fetchall()
+    con.commit()
+    con.close()
+    return res
 #all score of user
 
 def final_score():

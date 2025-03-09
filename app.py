@@ -238,7 +238,7 @@ def searc(id):
 
 @app.route('/scores/<id>')
 def scores(id):
-    a = final_score(id)
+    a = final_scor(id)
     return render_template('scores.html',a=a,u=id)
 
 
