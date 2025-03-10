@@ -28,3 +28,30 @@ Then there is summary which store the scores and repesent it in bar chart
 At last admin can search user by username or by subjects 
 
 ![Image](https://github.com/user-attachments/assets/a199a970-3632-473f-91b1-bb8360b8a4ee)  ![Image](https://github.com/user-attachments/assets/f6a553a1-635e-44c2-b77f-255746b996bd)
+
+2nd user :-
+
+At home page user can see all the quizes attempt it one at a time
+
+![Image](https://github.com/user-attachments/assets/d080823d-c70e-46f2-8e27-0b60440f8c79)
+
+At view option user can see detail of quiz
+
+![Image](https://github.com/user-attachments/assets/ccab1267-e9dc-441a-8cea-113d4a3056f3)
+
+At start user can attempt the quiz
+
+![Image](https://github.com/user-attachments/assets/8f393033-9373-4b8a-8f71-02be1ad385dd) ![Image](https://github.com/user-attachments/assets/a10536c1-ba9c-49de-9aca-47a13ad9356a)
+
+Now after attempting atleast one quiz the score is updated 
+
+![Image](https://github.com/user-attachments/assets/5b26a61b-352b-4d91-bea4-864af552bcdd)
+
+At summary section user can see the summary of scores
+
+![Image](https://github.com/user-attachments/assets/30cb3684-dd1e-4bd8-91e9-cfd03ca22f0f)
+
+At last user also have searh option by which user can list the scores by searching scores or doate of quiz
+
+![Image](https://github.com/user-attachments/assets/804023df-f8b4-4da5-8b30-16be2e530195)  ![Image](https://github.com/user-attachments/assets/7be8dea6-174f-4650-8d54-9a94b0a5611f)
+
